@@ -13,7 +13,7 @@ var stego_console = {
 	},
 	writeLog: function(output) {
 		// Output to the given filename
-		fs.appendFile(this.fileName, output, function(err) {
+		fs.appendFile(this.fileName, output+'\n', function(err) {
 			if (err) throw err;
 		});
 	},
@@ -36,7 +36,6 @@ var stego_console = {
 			str += ': ' + info.message;
 		else
 			str += ': ' + info;
-		str += '\n';
 
 		// Return the completed string
 		return str;

@@ -52,11 +52,12 @@ var stego_server = {
 	// or return plain text 404
 	returnFour: function(res, err) {
 		this.s_console.log('error', 'request', err);
-		fs.readFile(path+'404.html', function(err, html) {
+		fs.readFile(path+'/404.html', function(err, html) {
 			if (err) {
 				res.write('Error: 404');
 				res.end();
 			} else {
+				res.writeHead(404, {'Content-Type': 'text/html'});
 				res.write(html);
 				res.end();
 			}
