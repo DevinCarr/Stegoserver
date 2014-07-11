@@ -1,5 +1,6 @@
 var stego_server = {
 	start: function(port,path,s_console) {
+		this.path = path;
 		this.s_console = s_console;
 		var self = this;
 		http.createServer(function (req, res) {
@@ -47,10 +48,20 @@ var stego_server = {
 			}
 		}).listen(port);
 	},
+	// Check for an existing 404.html within the 'path' folder and display
+	// or return plain text 404
 	returnFour: function(res, err) {
 		this.s_console.log('error', 'request', err);
-		res.write('Error: 404');
-		res.end();
+		fs.readFile(path+'404.html', function(err, html) {
+			if (err) {
+				res.write('Error: 404');
+				res.end();
+			} else {
+				res.write(html);
+				res.end();
+			}
+		});
 	},
-	s_console: ''
+	s_console: '',
+	path: './app/'
 };

@@ -9,7 +9,8 @@ grunt.initConfig({
   uglify: {
     options: {
       banner: '/*!\n * <%= pkg.name %> <%= grunt.template.today("yyyy-mm-dd") %>\n' +
-                ' * Copyright (c) 2014 <%= pkg.author %>; Licensed MIT \n*/\n'
+              ' * Copyright (c) 2014 <%= pkg.author %>; License: <%= pkg.license %>\n' +
+              ' */\n'
     },
     release: {
       options:{
