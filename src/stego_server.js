@@ -1,15 +1,14 @@
-var http = require('http');
-var fs = require('fs');
-
-module.exports = {
-	start: function(port,logName,stego_console) {
+var stego_server = {
+	start: function(port,path,s_console) {
+		this.s_console = s_console;
+		var self = this;
 		http.createServer(function (req, res) {
-			stego_console.log('info','request', req.url);
+			self.s_console.log('info','request', req.url);
 			if (req.url === '/') {
 				res.writeHead(200, {'Content-Type': 'text/html'});
-				fs.readFile('./index.html', function(err, html) {
+				fs.readFile(path+'/index.html', function(err, html) {
 					if (err) {
-						returnFour(stego_console, req, err);
+						self.returnFour(res, err);
 					} else {
 						res.write(html);
 						res.end();
@@ -17,9 +16,9 @@ module.exports = {
 				});
 			} else if (req.url.indexOf('html') !== -1) {
 				res.writeHead(200, {'Content-Type': 'text/html'});
-				fs.readFile('.'+req.url, function(err, html) {
+				fs.readFile(path+req.url, function(err, html) {
 					if (err) {
-						returnFour(stego_console, req, err);
+						self.returnFour(res, err);
 					} else {
 						res.write(html);
 						res.end();
@@ -27,9 +26,9 @@ module.exports = {
 				});
 			} else if (req.url.indexOf('/', req.url.length-1) !== -1) {
 				res.writeHead(200, {'Content-Type': 'text/html'});
-				fs.readFile('.'+req.url+'/index.html', function(err, html) {
+				fs.readFile(path+req.url+'/index.html', function(err, html) {
 					if (err) {
-						returnFour(stego_console, req, err);
+						self.returnFour(res, err);
 					} else {
 						res.write(html);
 						res.end();
@@ -37,9 +36,9 @@ module.exports = {
 				});
 			} else {
 				res.writeHead(200, {'Content-Type': 'text/plain'});
-				fs.readFile('.'+req.url, function(err, data) {
+				fs.readFile(path+req.url, function(err, data) {
 					if (err) {
-						returnFour(stego_console, req, err);
+						self.returnFour(res, err);
 					} else {
 						res.write(data);
 						res.end();
@@ -47,11 +46,11 @@ module.exports = {
 				});
 			}
 		}).listen(port);
-	}
-}
-
-var returnFour = function(stego_console, res, err) {
-	stego_console.log('error', 'request', err);
-	res.write('Error: 404');
-	res.end();
-}
+	},
+	returnFour: function(res, err) {
+		this.s_console.log('error', 'request', err);
+		res.write('Error: 404');
+		res.end();
+	},
+	s_console: ''
+};
