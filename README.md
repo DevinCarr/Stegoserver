@@ -17,7 +17,7 @@ Download the minified Javascript file directly from
 ```shell
 node Stegoserver.min.js
 ```
-Runs with default settings as layout below.
+Runs with default settings as described below.
 
 
 
