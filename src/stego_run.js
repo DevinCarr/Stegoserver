@@ -16,7 +16,6 @@ var main = function() {
 	// Start the server
 	server.start(port,path,s_console);
 	// Initialize first output
-	var date = new Date();
 	s_console.log('info', 'initialization', 'Stegoserver starting on port:' + port);
 };
 
@@ -58,7 +57,6 @@ var checkArgs = function() {
 		} else if (val === '-l') {
 			// Check the webapp file location
 			var input = args[index+1];
-			console.log('here');
 			stats = fs.statSync(input);
 			if (!stats.isDirectory()) {
 				console.log('ERROR: path doesn\'t exist');
@@ -69,7 +67,6 @@ var checkArgs = function() {
 				else
 					filePath = input.substring(0,input.length-1);
 			}
-			console.log('back');
 		}
 	});
 	return { 'port': portNum, 'log': logName, 'path': filePath };

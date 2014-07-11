@@ -20,15 +20,6 @@ grunt.initConfig({
         './build/release/<%= pkg.name %>.min.js': ['./src/stego_server.js','./src/stego_console.js','./src/stego_run.js'],
         './<%= pkg.name %>.min.js': ['./src/stego_server.js','./src/stego_console.js','./src/stego_run.js']
       }
-    },
-    dev: {
-      options:{
-        mangle: false,
-        compress: false
-      },
-      files: {
-        './build/dev/<%= pkg.name %>.dev.min.js': ['./src/stego_server.js','./src/stego_console.js','./src/stego_run.js']
-      }
     }
   },
   concat: {
