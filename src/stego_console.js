@@ -36,6 +36,7 @@ var stego_console = {
 			str += ': ' + info.message;
 		else
 			str += ': ' + info;
+		str += '\n';
 
 		// Return the completed string
 		return str;

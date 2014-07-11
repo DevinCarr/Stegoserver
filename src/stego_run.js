@@ -48,7 +48,7 @@ var checkArgs = function() {
 			// Check the log value for a string
 			var given = args[index+1];
 			if (typeof(given) === 'string') {
-				if (given.indexOf('.log') !== -1) {
+				if (given.indexOf('.log') === -1) {
 					logName = given + '.log';
 				} else {
 					logName = given;
