@@ -1,68 +1,62 @@
 var stego_server = {
-	start: function(port,path,s_console) {
+	start: function(port,path) {
 		this.path = path;
-		this.s_console = s_console;
 		var self = this;
 		http.createServer(function (req, res) {
-			self.s_console.log('info','request', req.url);
-			if (req.url === '/') {
-				res.writeHead(200, {'Content-Type': 'text/html'});
-				fs.readFile(path+'/index.html', function(err, html) {
-					if (err) {
-						self.returnFour(res, err);
-					} else {
-						res.write(html);
-						res.end();
-					}
-				});
+			if (req.url.indexOf('/', req.url.length-1) !== -1) {
+				req.url += '/index.html';
+				self.serveHtml(req,res);
 			} else if (req.url.indexOf('html') !== -1) {
-				res.writeHead(200, {'Content-Type': 'text/html'});
-				fs.readFile(path+req.url, function(err, html) {
-					if (err) {
-						self.returnFour(res, err);
-					} else {
-						res.write(html);
-						res.end();
-					}
-				});
-			} else if (req.url.indexOf('/', req.url.length-1) !== -1) {
-				res.writeHead(200, {'Content-Type': 'text/html'});
-				fs.readFile(path+req.url+'/index.html', function(err, html) {
-					if (err) {
-						self.returnFour(res, err);
-					} else {
-						res.write(html);
-						res.end();
-					}
-				});
+				self.serveHtml(req,res);
 			} else {
-				res.writeHead(200, {'Content-Type': 'text/plain'});
-				fs.readFile(path+req.url, function(err, data) {
-					if (err) {
-						self.returnFour(res, err);
-					} else {
-						res.write(data);
-						res.end();
-					}
-				});
+				self.serveOther(req,res);
 			}
 		}).listen(port);
 	},
-	// Check for an existing 404.html within the 'path' folder and display
-	// or return plain text 404
-	returnFour: function(res, err) {
-		this.s_console.log('error', 'request', err);
-		fs.readFile(path+'/404.html', function(err, html) {
+	// Return the html by writing the head and read the file
+	serveHtml: function(req,res) {
+		var self = this;
+		res.writeHead(200, {'Content-Type': 'text/html'});
+		fs.readFile(this.path+req.url, function(err, html) {
 			if (err) {
-				res.write('Error: 404');
-				res.end();
+				self.returnFour(req, res, err);
 			} else {
-				res.writeHead(404, {'Content-Type': 'text/html'});
-				res.write(html);
-				res.end();
+				self.returnTwo(req, res, html);
 			}
 		});
 	},
-	s_console: '',
+	// Return other content such as js and images
+	serveOther: function(req,res) {
+		var self = this;
+		res.writeHead(200, {'Content-Type': 'text/plain'});
+		fs.readFile(this.path+req.url, function(err, data) {
+			if (err) {
+				self.returnFour(req, res, err);
+			} else {
+				self.returnTwo(req, res, data);
+			}
+		});
+	},
+	// Check for an existing 404.html within the 'path' folder and display
+	// or return plain text 404
+	returnFour: function(req,res,err) {
+		fs.readFile(path+'/404.html', function(error, html) {
+			res.writeHead(404, {'Content-Type': 'text/html'});
+			if (error) {
+				res.write('Error: 404');
+				res.end();
+			} else {
+				res.write(html);
+				res.end();
+			}
+			log.request('error', err);
+		});
+	},
+	// Display the requested content
+	returnTwo: function(req,res,data) {
+		res.write(data);
+		res.end();
+		log.request('complete', req.url);
+	},
 	path: './app/'
 };

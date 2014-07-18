@@ -1,27 +1,19 @@
 var stego_console = {
-	log: function(type, access, info) {
-		var output = this.buildLog(type, access, info);
-		// Check whether to send to console or a log file
-		if (this.fileName) {
-			this.writeLog(output);
-		} else {
-			this.outLog(output);
-		}
-	},
-	start: function(file) {
-		this.fileName = file;
-	},
-	writeLog: function(output) {
-		// Output to the given filename
-		fs.appendFile(this.fileName, output+'\n', function(err) {
+	request: function(type,data) {
+		// Output to the requests.log
+		var output = this.build(type, 'request', data);
+		fs.appendFile('./requests.log', output, function(err) {
 			if (err) throw err;
 		});
 	},
-	outLog: function(output) {
-		// Output to the console JS object
-		console.log(output);
+	blacklist: function(type, access, info) {
+		// Output potential blacklist log
+		var output = this.build(type, access, info);
+		fs.appendFile('./potential.log', output, function(err) {
+			if (err) throw err;
+		});
 	},
-	buildLog: function(type, access, info) {
+	build: function(type, access, info) {
 		// Build the log message to be output
 		// Default values
 		type = type || '[INFO]';
@@ -36,9 +28,9 @@ var stego_console = {
 			str += ': ' + info.message;
 		else
 			str += ': ' + info;
+		str += '\n';
 
 		// Return the completed string
 		return str;
-	},
-	fileName: ''	// For checking to use the console.log or not
+	}
 };

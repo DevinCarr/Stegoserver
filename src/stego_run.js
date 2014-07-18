@@ -1,28 +1,25 @@
 var fs = require('fs');
 var http = require('http');
+var server = stego_server;
+var log = stego_console;
 
 var main = function() {
-	var server = stego_server;
-	var s_console = stego_console;
 	// Aquire the system variables needed
 	args = checkArgs();
 	port = args.port;
-	log = args.log;
+	blacklist = args.blacklist;
 	path = args.path;
 
-	// Start the console logging
-	s_console.start(log);
-
 	// Start the server
-	server.start(port,path,s_console);
+	server.start(port,path,log);
 	// Initialize first output
-	s_console.log('info', 'initialization', 'Stegoserver starting on port:' + port);
+	log.request('info','Stegoserver starting on port:' + port);
 };
 
 var checkArgs = function() {
 	var args = process.argv.slice(2);
 	var portNum = 8080;
-	var logName = '';
+	var blacklist = 'lax';
 	var filePath = './app';
 
 	// Check the input console args for -h, -p, -l
@@ -37,21 +34,20 @@ var checkArgs = function() {
 				'The port number to bind the webservice to. Default: 8080' +
 				'\n  -l, --location [FILE_PATH]\t' +
 				'The location of the app to serve files from (app folder). Default .' +
-				'\n  -d, --debug [FILE_NAME]\t' +
-				'The name of the log file. Default: Console');
+				'\n  -b, --blacklist [TYPE]\t' +
+				'A request watcher to actively blacklist bad requests. Default: lax');
 			process.exit(0);
 		} else if (val === '-p') {
 			// Check the port value for a number
 			if (typeof(+args[index+1]) === 'number')
 				portNum = args[index+1];
-		} else if  (val === '-d') {
-			// Check the log value for a string
+		} else if  (val === '-b') {
+			// Check the blacklist value for a string
 			var given = args[index+1];
 			if (typeof(given) === 'string') {
-				if (given.indexOf('.log') === -1) {
-					logName = given + '.log';
-				} else {
-					logName = given;
+				// If not strict, assume lax
+				if (given.indexOf('strict') !== -1) {
+					blacklist = given;
 				}
 			}
 		} else if (val === '-l') {
@@ -69,7 +65,7 @@ var checkArgs = function() {
 			}
 		}
 	});
-	return { 'port': portNum, 'log': logName, 'path': filePath };
+	return { 'port': portNum, 'blacklist': blacklist, 'path': filePath };
 };
 
 // Run the main method if called from the console
