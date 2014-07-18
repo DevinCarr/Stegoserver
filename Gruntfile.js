@@ -1,5 +1,7 @@
 module.exports = function(grunt) {
 
+fileList = ['./src/stego_watcher.js','./src/stego_server.js','./src/stego_console.js','./src/stego_run.js'];
+
 // Project configuration.
 grunt.initConfig({
   pkg: grunt.file.readJSON('package.json'),
@@ -18,8 +20,8 @@ grunt.initConfig({
         compress: true
       },
       files: {
-        './build/release/<%= pkg.name %>.min.js': ['./src/stego_server.js','./src/stego_console.js','./src/stego_run.js'],
-        './<%= pkg.name %>.min.js': ['./src/stego_server.js','./src/stego_console.js','./src/stego_run.js']
+        './build/release/<%= pkg.name %>.min.js': fileList,
+        './<%= pkg.name %>.min.js': fileList
       }
     }
   },
@@ -28,7 +30,7 @@ grunt.initConfig({
       separator: '\n',
     },
     dist: {
-      src: ['./src/stego_server.js','./src/stego_console.js','./src/stego_run.js'],
+      src: fileList,
       dest: './build/dev/<%= pkg.name %>.dev.min.js'
     },
   }

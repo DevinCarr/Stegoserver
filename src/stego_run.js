@@ -2,6 +2,7 @@ var fs = require('fs');
 var http = require('http');
 var server = stego_server;
 var log = stego_console;
+var watcher = stego_watcher;
 
 var main = function() {
 	// Aquire the system variables needed

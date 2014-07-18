@@ -3,13 +3,18 @@ var stego_server = {
 		this.path = path;
 		var self = this;
 		http.createServer(function (req, res) {
-			if (req.url.indexOf('/', req.url.length-1) !== -1) {
-				req.url += '/index.html';
-				self.serveHtml(req,res);
-			} else if (req.url.indexOf('html') !== -1) {
-				self.serveHtml(req,res);
+			if (!watcher.inList(req)) {
+				if (req.url.indexOf('/', req.url.length-1) !== -1) {
+					req.url += 'index.html';
+					self.serveHtml(req,res);
+				} else if (req.url.indexOf('html') !== -1) {
+					self.serveHtml(req,res);
+				} else {
+					self.serveOther(req,res);
+				}
 			} else {
-				self.serveOther(req,res);
+				res.writeHead(503);
+				res.end();
 			}
 		}).listen(port);
 	},
@@ -40,6 +45,7 @@ var stego_server = {
 	// Check for an existing 404.html within the 'path' folder and display
 	// or return plain text 404
 	returnFour: function(req,res,err) {
+		var self = this;
 		fs.readFile(path+'/404.html', function(error, html) {
 			res.writeHead(404, {'Content-Type': 'text/html'});
 			if (error) {
@@ -49,6 +55,7 @@ var stego_server = {
 				res.write(html);
 				res.end();
 			}
+			watcher.checkThis(req,err);
 			log.request('error', err);
 		});
 	},
