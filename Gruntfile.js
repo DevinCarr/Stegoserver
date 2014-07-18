@@ -20,8 +20,7 @@ grunt.initConfig({
         compress: true
       },
       files: {
-        './build/release/<%= pkg.name %>.min.js': fileList,
-        './<%= pkg.name %>.min.js': fileList
+        './build/release/<%= pkg.name %>.min.js': fileList
       }
     }
   },
