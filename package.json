@@ -1,27 +1,36 @@
 {
   "name": "Stegoserver",
-  "version": "0.0.1",
+  "version": "0.3.0",
+  "main": "./bin/stegoserver.js",
   "description": "A static Node webserver.",
-  "main": "Stegoserver.min.js",
-  "dependencies": {},
-  "devDependencies": {
-    "grunt": "~0.4.5",
-    "grunt-contrib-jshint": "~0.10.0",
-    "grunt-contrib-nodeunit": "~0.3.3",
-    "grunt-contrib-uglify": "~0.5.0",
-    "grunt-contrib-concat": "~0.4.0"
+  "homepage": "https://github.com/DevinCarr/Stegoserver",
+  "bugs": {
+    "url": "https://github.com/DevinCarr/Stegoserver/issues"
   },
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+  "author": {
+      "name": "Devin Carr"
   },
   "repository": {
     "type": "git",
     "url": "git://github.com/DevinCarr/Stegoserver.git"
   },
-  "author": "Devin Carr",
   "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/DevinCarr/Stegoserver/issues"
+  "keywords": [
+    "Stegoserver",
+    "http-server",
+    "static",
+    "simple"
+  ],
+  "scripts": {
+    "test": "grunt"
   },
-  "homepage": "https://github.com/DevinCarr/Stegoserver"
+  "devDependencies": {
+    "grunt": "~0.4.5",
+    "grunt-contrib-jshint": "~0.10.0",
+    "grunt-contrib-nodeunit": "~0.3.3"
+  },
+  "dependencies": {},
+  "bin": {
+    "stegoserver": "bin/stegoserver.js"
+  }
 }
