@@ -46,16 +46,6 @@ The target directory for the webserver to serve files from.
 node Stegoserver.min.js -l ~/Documents/website/
 ```
 
-#### debug (`-d`)
-**Accepts: `string`  
-Default: `Shell`  
-Description:**  
-The name of the log file to output too. (default is using console.log to output log messages)  
-**Example:**  
-```shell
-node Stegoserver.min.js -d server.log
-```
-
 Contributing
 ============
 Stegoserver uses [grunt](http://gruntjs.com/) (`^4.5.0`) to build the files into one minified
