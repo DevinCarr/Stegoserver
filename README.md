@@ -9,13 +9,10 @@ html pages for now.
 Getting Started
 ============
 
-Download the minified Javascript file directly from
-[the latest-release page](https://github.com/DevinCarr/Stegoserver/releases/latest).
-
 ### Usage
 
 ```shell
-node Stegoserver.min.js
+$ stegoserver
 ```
 Runs with default settings as described below.
 
@@ -33,7 +30,7 @@ Desciption:**
 The port number to connect the node webserver to.  
 **Example:**  
 ```shell
-node Stegoserver.min.js -p 80
+$ stegoserver -p 80
 ```
 
 #### location (`-l`)
@@ -43,19 +40,16 @@ Description:**
 The target directory for the webserver to serve files from.  
 **Example:**  
 ```shell
-node Stegoserver.min.js -l ~/Documents/website/
+$ stegoserver -l ~/Documents/website/
 ```
 
 Contributing
 ============
-Stegoserver uses [grunt](http://gruntjs.com/) (`^4.5.0`) to build the files into one minified
-js file.
-
-### Setup
+Stegoserver uses [grunt](http://gruntjs.com/) (`^4.5.0`) to use jshint and test.
 
 #### Grunt
 ```shell
-npm install -g grunt-cli
+$ npm install -g grunt-cli
 ```
 #### Stegoserver Setup:
 ```shell
@@ -65,14 +59,9 @@ npm install
 ```
 #### Grunt Commands:
 
-To build and compile the JS into one file without minification and puts the file in `./build/dev/`
+To check and run tests:
 ```shell
-grunt dev
-```
-
-To build the release:
-```shell
-grunt release
+$ grunt
 ```
 
 
