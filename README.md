@@ -1,3 +1,4 @@
+[![NPM version](https://badge.fury.io/js/stegoserver.svg)](http://badge.fury.io/js/stegoserver)
 Stegoserver
 ============
 >*A static Nodejs webserver*
