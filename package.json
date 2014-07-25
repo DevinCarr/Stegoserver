@@ -1,5 +1,5 @@
 {
-  "name": "Stegoserver",
+  "name": "stegoserver",
   "version": "0.3.0",
   "main": "./bin/stegoserver.js",
   "description": "A static Node webserver.",
