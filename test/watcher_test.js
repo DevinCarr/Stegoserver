@@ -6,7 +6,9 @@ exports.watcher = {
     setUp: function(done) {
         // setup
         server.start(8080,"./test");
-        done();
+        fs.writeFile('./blacklist.txt', '', function(err) {
+            done();
+        });
     },
     tearDown: function(done) {
         server.close();

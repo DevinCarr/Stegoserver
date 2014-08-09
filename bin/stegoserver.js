@@ -40,7 +40,11 @@ var checkArgs = function() {
 				'\n  -p, --port [PORT]\t' +
 				'The port number to bind the webservice to. Default: 8080' +
 				'\n  -l, --location [FILE_PATH]\t' +
-				'The location of the app to serve files from (app folder). Default .');
+				'The location of the app to serve files from (app folder). Default .' +
+				'\n  -v, --version \t' +
+				'Displays the version.' +
+				'\n  -h, --help \t' +
+				'Displays the help');
 			process.exit(0);
 		} else if (val === '-p') {
 			// Check the port value for a number
@@ -59,6 +63,12 @@ var checkArgs = function() {
 				else
 					filePath = input.substring(0,input.length-1);
 			}
+		} else if (val === '-v') {
+			// Display version number
+			var data = fs.readFileSync('../package.json');
+			var json_data = JSON.parse(data);
+			console.log("Stegoserver version " + json_data.version);
+			process.exit(0);
 		}
 	});
 	return { 'port': portNum, 'path': filePath };
