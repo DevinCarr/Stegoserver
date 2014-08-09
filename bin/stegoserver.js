@@ -12,15 +12,16 @@ function main() {
 	// Start the server
 	server.start(port,path);
 
-	// Watch for close commands
-	function close() {
-		server.close();
-	}
-
 	// catches ctrl+c event
-	process.on('SIGINT', close.bind());
-	process.on('SIGTERM', close.bind());
+	process.on('SIGINT', function() { close() });
+	process.on('SIGTERM', function() { close() });
 };
+
+// Watch for close commands
+var close = function () {
+	server.close();
+	process.exit(0);
+}
 
 var checkArgs = function() {
 	var args = process.argv.slice(2);
