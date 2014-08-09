@@ -1,6 +1,6 @@
 {
   "name": "stegoserver",
-  "version": "0.4.1",
+  "version": "0.4.2",
   "main": "./bin/stegoserver.js",
   "description": "A static Node webserver.",
   "homepage": "https://github.com/DevinCarr/Stegoserver",
