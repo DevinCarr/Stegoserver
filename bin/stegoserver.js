@@ -1,6 +1,8 @@
 #!/usr/bin/env node
 var fs = require('fs');
 var http = require('http');
+var exec = require('child_process').exec,
+  	child;
 var server = require('../lib/server.js');
 
 function main() {
@@ -65,10 +67,11 @@ var checkArgs = function() {
 			}
 		} else if (val === '-v') {
 			// Display version number
-			var data = fs.readFileSync('../package.json');
-			var json_data = JSON.parse(data);
-			console.log("Stegoserver version " + json_data.version);
-			process.exit(0);
+			child = exec('npm show stegoserver version',
+			  function (error, stdout, stderr) {
+					console.log(stdout.split('\n')[0]);
+					process.exit(0);
+				});
 		}
 	});
 	return { 'port': portNum, 'path': filePath };
