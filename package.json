@@ -1,6 +1,10 @@
 {
   "name": "stegoserver",
+<<<<<<< HEAD
   "version": "0.3.1",
+=======
+  "version": "0.4.0",
+>>>>>>> develop
   "main": "./bin/stegoserver.js",
   "description": "A static Node webserver.",
   "homepage": "https://github.com/DevinCarr/Stegoserver",

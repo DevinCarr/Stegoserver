@@ -23,26 +23,23 @@ Options
 ============
 Configurable options for the webserver.
 
-#### port (`-p`)
+#### port (-p)
 
 **Accepts: `number`  
 Default: `8080`  
 Desciption:**  
 The port number to connect the node webserver to.  
 **Example:**  
-```shell
-$ stegoserver -p 80
-```
+`$ stegoserver -p 80`
 
-#### location (`-l`)
+#### location (-l)
 **Accepts: `string`  
 Default: `./app/`  
 Description:**  
 The target directory for the webserver to serve files from.  
 **Example:**  
-```shell
-$ stegoserver -l ~/Documents/website/
-```
+`$ stegoserver -l ~/Documents/website/`
+
 
 Contributing
 ============
